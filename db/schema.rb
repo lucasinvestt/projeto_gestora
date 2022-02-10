@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_02_10_202849) do
+ActiveRecord::Schema.define(version: 2022_02_10_213718) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -19,10 +19,10 @@ ActiveRecord::Schema.define(version: 2022_02_10_202849) do
     t.string "description"
     t.date "date"
     t.float "value"
-    t.bigint "funds_id", null: false
+    t.bigint "fund_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.index ["funds_id"], name: "index_cash_transactions_on_funds_id"
+    t.index ["fund_id"], name: "index_cash_transactions_on_fund_id"
   end
 
   create_table "close_prices", force: :cascade do |t|
@@ -61,7 +61,7 @@ ActiveRecord::Schema.define(version: 2022_02_10_202849) do
     t.index ["securities_id"], name: "index_security_transactions_on_securities_id"
   end
 
-  add_foreign_key "cash_transactions", "funds", column: "funds_id"
+  add_foreign_key "cash_transactions", "funds"
   add_foreign_key "close_prices", "securities", column: "securities_id"
   add_foreign_key "security_transactions", "funds", column: "funds_id"
   add_foreign_key "security_transactions", "securities", column: "securities_id"
