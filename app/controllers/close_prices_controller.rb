@@ -46,6 +46,6 @@ class ClosePricesController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def close_price_params
-      params.require(:close_price).permit(:date, :value, :securities_id)
+      params.require(:close_price).permit(:date, :value, :security_id)
     end
 end
