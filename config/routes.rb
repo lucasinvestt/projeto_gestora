@@ -5,6 +5,8 @@ Rails.application.routes.draw do
   resources :securities
   resources :funds
 
+  get "/fund_balance/:id", to: "fund_balance#index"
+
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
   # Defines the root path route ("/")
