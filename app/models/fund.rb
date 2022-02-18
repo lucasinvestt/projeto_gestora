@@ -20,7 +20,7 @@ class Fund < ApplicationRecord
 
     def self.getFundPL(fund_id, date)
         securities_value = Fund.getSecuritiesTotalValue(fund_id, date)
-        fund_balance = CashTransaction.fund_balance(fund_id)
+        fund_balance = CashTransaction.fund_balance(fund_id, date)
 
         plInfo = {
             "fund_id": fund_id,
