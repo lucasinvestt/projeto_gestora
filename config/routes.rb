@@ -7,6 +7,7 @@ Rails.application.routes.draw do
 
   get "/fund_balance/:id", to: "fund_balance#index"
   get "/portfolios/:id/:date", to: "portfolios#index"
+  get "/pl/:id/:date", to: "pl#index"
 
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
