@@ -24,7 +24,7 @@ class Fund < ApplicationRecord
 
         plInfo = {
             "fund_id": fund_id,
-            "fund_balance": fund_balance[0].totalvalue,
+            "fund_balance": fund_balance[0].balance,
             "all_securities_value": securities_value[0].totalsum
         }
 
