@@ -38,6 +38,33 @@ class FundsController < ApplicationController
     @fund.destroy
   end
 
+  def getSecuritiesTransactionsFromDate
+    render json: SecurityTransaction.securitiesTransactionsFromDate(fund_id, date), 
+      include: {
+        security: {
+          only: [:id, :symbol, :security_type]
+        },
+        # fund: {
+        #   only: [:id, :name]
+        # }
+      }
+
+  end
+
+  def getCashTransactionsFromDate
+      render json: CashTransaction.getCashTransactionsFromDate(fund_id, date)
+  end
+
+  def getPortfolioWithClosePrices
+      # render json: Fund.getPortfolioWithClosePrices(fund_id, date) 
+      render json: Fund.getPortfolioWithClosePrices(fund_id, date),
+        include: {
+          security: {
+            only: [:id, :symbol, :security_type]
+          },
+        }
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_fund
@@ -48,4 +75,14 @@ class FundsController < ApplicationController
     def fund_params
       params.require(:fund).permit(:name, :date)
     end
+
+  protected
+  def fund_id 
+      params[:fund_id]
+  end
+
+  def date
+      Date.parse(params[:date])
+  end
+
 end

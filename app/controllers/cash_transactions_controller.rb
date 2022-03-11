@@ -5,12 +5,17 @@ class CashTransactionsController < ApplicationController
   def index
     @cash_transactions = CashTransaction.all
 
-    render json: @cash_transactions
+    render json: @cash_transactions,
+      include: {
+        fund: {
+          only: [:id, :name]
+        }
+      }
   end
 
   # GET /cash_transactions/1
   def show
-    render json: @cash_transaction
+    render json: @cash_transaction, include: {fund: {only: [:name]}}
   end
 
   # POST /cash_transactions
@@ -36,6 +41,15 @@ class CashTransactionsController < ApplicationController
   # DELETE /cash_transactions/1
   def destroy
     @cash_transaction.destroy
+  end
+
+  def getAllCashTransactionsFromDate
+    render json: CashTransaction.getAllCashTransactionsFromDate(params[:date]),
+      include: {
+        fund: {
+          only: [:id, :name]
+        },
+      }
   end
 
   private

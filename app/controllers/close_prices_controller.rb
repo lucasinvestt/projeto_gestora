@@ -5,12 +5,12 @@ class ClosePricesController < ApplicationController
   def index
     @close_prices = ClosePrice.all
 
-    render json: @close_prices
+    render json: @close_prices, include: {security: {only: [:symbol]}}
   end
 
   # GET /close_prices/1
   def show
-    render json: @close_price
+    render json: @close_price, include: {security: {only: [:id, :symbol]}}
   end
 
   # POST /close_prices
@@ -38,6 +38,10 @@ class ClosePricesController < ApplicationController
     @close_price.destroy
   end
 
+  def closePricesFromDate
+    render json: ClosePrice.all.where("date = ?", date), include: {security: {only: [:symbol]}}
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_close_price
@@ -47,5 +51,10 @@ class ClosePricesController < ApplicationController
     # Only allow a list of trusted parameters through.
     def close_price_params
       params.require(:close_price).permit(:date, :value, :security_id)
+    end
+
+  protected
+    def date
+      Date.parse(params[:date])
     end
 end

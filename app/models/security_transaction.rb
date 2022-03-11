@@ -12,15 +12,40 @@ class SecurityTransaction < ApplicationRecord
     .includes(:security)
   end 
 
-  def as_json(_option)
-    super({
-      only: [:totalamount],
-      include: {
-        security: {
-          only: [:id, :name, :security_type, :isin]
-        }
-      }
-    })
+  def self.securitiesTransactionsFromDate(fund_id, date)
+    all
+    # .select("amount, unit_value")
+    .where(fund_id: fund_id)
+    .where(date: date)
   end
+
+  def self.allSecuritiesTransactionsFromDate(date)
+    all.where(date: date)
+  end
+
+  # def as_json(_option)
+  #   super({
+  #     only: [:totalamount, :amount, :unit_value],
+  #     include: {
+  #       security: {
+  #         only: [:id, :name, :security_type, :isin]
+  #       }
+  #     }
+  #   }.merge(_option))
+  # end
+
+  #   def as_json(_option)
+  #   super({
+  #     only: [:totalamount, :amount, :unit_value],
+  #     include: {
+  #       security: {
+  #         only: [:id, :name, :security_type]
+  #       },
+  #       fund: {
+  #         only: [:id, :name]
+  #       }
+  #     }
+  #   }.merge(_option))
+  # end
 
 end

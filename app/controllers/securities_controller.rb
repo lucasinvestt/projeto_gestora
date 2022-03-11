@@ -46,6 +46,6 @@ class SecuritiesController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def security_params
-      params.require(:security).permit(:name, :security_type, :isin)
+      params.require(:security).permit(:name, :security_type, :isin, :symbol)
     end
 end
